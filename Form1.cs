@@ -111,7 +111,7 @@ namespace TwitchGFL
             int viewsLimit = int.Parse(Properties.Settings.Default.MinimumViews);
             var hp = await TheTwitchAPI.Helix.Games.GetGamesAsync(null, new List<string>() { "Path of Exile" });
             var clipy = await TheTwitchAPI.Helix.Clips.GetClipsAsync(null, hp.Games[0].Id.ToString(), null, null, null, fromDate, toDate, 100);
-            textBox12.Text = "";
+            textBox1.Text = "";
             foreach (var item in clipy.Clips.OrderByDescending(x => x.ViewCount))
             {
                 if (item.ViewCount < viewsLimit)
