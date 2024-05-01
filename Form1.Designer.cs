@@ -118,10 +118,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 56);
+            this.textBox1.Location = new System.Drawing.Point(12, 69);
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.textBox1.Size = new System.Drawing.Size(685, 382);
+            this.textBox1.Size = new System.Drawing.Size(695, 369);
             this.textBox1.TabIndex = 7;
             this.textBox1.Text = "";
             // 
