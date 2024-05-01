@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="TwitchGFL.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.2" />
+    </startup>
+    <userSettings>
+        <TwitchGFL.Properties.Settings>
+            <setting name="ClientId" serializeAs="String">
+                <value>p96h691nv3aoul2k3i21rcmxiebacm</value>
+            </setting>
+            <setting name="ClientSecret" serializeAs="String">
+                <value>0yf4v932e8y8tr88pc0av2tmcesa23</value>
+            </setting>
+            <setting name="TwitchCode" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="MinimumViews" serializeAs="String">
+                <value>100</value>
+            </setting>
+        </TwitchGFL.Properties.Settings>
+    </userSettings>
+</configuration>
