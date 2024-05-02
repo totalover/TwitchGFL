@@ -14,6 +14,8 @@ using System.IO;
 using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
+using TwitchGFL.Models;
+using System.Security.Policy;
 
 
 
@@ -58,7 +60,7 @@ namespace TwitchGFL
             }
 
             LoadBans();
-            AuthApp();
+            //AuthApp();
 
             if(_isAutoMode)
             {
@@ -83,10 +85,50 @@ namespace TwitchGFL
             }
         }
 
-        private void Form1_Shown(object sender, EventArgs e)
+        private async void Form1_Shown(object sender, EventArgs e)
         {
-            InitWebServer();
+            //InitWebServer();
+            TwitchAuthReply authStep1 = await GetDeviceAccessCode();
+            System.Diagnostics.Process.Start(authStep1.verification_uri);
+
         }
+
+        private async Task<TwitchAuthReply> GetDeviceAccessCode()
+        {
+            HttpClient client = new HttpClient();
+            var values = new Dictionary<string, string>
+            {
+                { "client_id", ClientId },
+                { "scopes", "chat:read" }
+            };
+
+            var content = new FormUrlEncodedContent(values);
+            var response = await client.PostAsync("https://id.twitch.tv/oauth2/device", content);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            var json = JsonConvert.DeserializeObject<TwitchAuthReply>(responseString);
+            return json;
+        }
+
+        private async Task<TwitchAuthReply> GetDeviceAccessCode()
+        {
+            HttpClient client = new HttpClient();
+            var values = new Dictionary<string, string>
+            {
+                { "client_id", ClientId },
+                { "scopes", "chat:read" }
+            };
+
+            var content = new FormUrlEncodedContent(values);
+            var response = await client.PostAsync("https://id.twitch.tv/oauth2/device", content);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            var json = JsonConvert.DeserializeObject<TwitchAuthReply>(responseString);
+            return json;
+        }
+
+
+
 
 
         void AuthApp()
@@ -187,8 +229,8 @@ namespace TwitchGFL
                 if (e.Request.QueryString.AllKeys.Any("code".Contains))
                 {
                     var code = e.Request.QueryString["code"];
-                    var ownerOfChannelAccessAndRefresh = await getAccessAndRefreshTokens(code);
-                    CachedOwnerOfChannelAccessToken = ownerOfChannelAccessAndRefresh.Item1;
+                    //var ownerOfChannelAccessAndRefresh = await getAccessAndRefreshTokens(code);
+                    //CachedOwnerOfChannelAccessToken = ownerOfChannelAccessAndRefresh.Item1;
                     SetNameAndIdByOauthUser(CachedOwnerOfChannelAccessToken).Wait();
                     InitlaizeTwitchAPI(CachedOwnerOfChannelAccessToken);
 
@@ -198,8 +240,8 @@ namespace TwitchGFL
 
         async void ConnectUsingCachedCode(string code)
         {
-            var ownerOfChannelAccessAndRefresh = await getAccessAndRefreshTokens(code);
-            CachedOwnerOfChannelAccessToken = ownerOfChannelAccessAndRefresh.Item1;
+            //var ownerOfChannelAccessAndRefresh = await getAccessAndRefreshTokens(code);
+            //CachedOwnerOfChannelAccessToken = ownerOfChannelAccessAndRefresh.Item1;
             SetNameAndIdByOauthUser(CachedOwnerOfChannelAccessToken).Wait();
             InitlaizeTwitchAPI(CachedOwnerOfChannelAccessToken);
         }
@@ -227,29 +269,6 @@ namespace TwitchGFL
             string TwitchChannelName = oauthUser.Users[0].Login;
         }
 
-
-
-        async Task<Tuple<string, string>> getAccessAndRefreshTokens(string code)
-        {
-            HttpClient client = new HttpClient();
-            var values = new Dictionary<string, string>
-            {
-                { "client_id", ClientId },
-                { "client_secret", ClientSecret },
-                { "code", code },
-                { "grant_type", "authorization_code" },
-                { "redirect_uri", RedirectUrl }
-            };
-
-
-            var content = new FormUrlEncodedContent(values);
-            var response = await client.PostAsync("https://id.twitch.tv/oauth2/token", content);
-
-            var responseString = await response.Content.ReadAsStringAsync();
-            var json = JObject.Parse(responseString);
-            return new Tuple<string, string>(json["access_token"].ToString(), json["refresh_token"].ToString());
-
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
