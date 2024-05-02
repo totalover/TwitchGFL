@@ -274,5 +274,19 @@ namespace TwitchGFL
         {
             new Settings().ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int limiter = 0;
+            foreach (var item in textBox1.Lines)
+            {
+                System.Diagnostics.Process.Start(item);
+                limiter++;
+                if(limiter > 9)
+                {
+                    break;
+                }
+            }
+        }
     }
 }
