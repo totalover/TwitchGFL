@@ -48,6 +48,15 @@ namespace TwitchGFL
             dateTimeFrom.Text = DateTime.Now.AddDays(-1).ToString("dd.MM.yyyy HH:mm");
             dateTimeUntil.Text = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
             numericUpDown1.Value = int.Parse(Properties.Settings.Default.MinimumViews);
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.GrabTopVideos))
+            {
+                numericUpDown2.Value = int.Parse(Properties.Settings.Default.GrabTopVideos);
+            }
+            else
+            {
+                numericUpDown2.Value = 10;
+            }
+
             LoadBans();
             AuthApp();
 
@@ -277,16 +286,23 @@ namespace TwitchGFL
 
         private void button4_Click(object sender, EventArgs e)
         {
-            int limiter = 0;
+            int counter = 0;
+            int limiter = int.Parse(Properties.Settings.Default.GrabTopVideos);
             foreach (var item in textBox1.Lines)
             {
                 System.Diagnostics.Process.Start(item);
-                limiter++;
-                if(limiter > 9)
+                counter++;
+                if(counter >= limiter)
                 {
                     break;
                 }
             }
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.GrabTopVideos = numericUpDown2.Value.ToString();
+            Properties.Settings.Default.Save();
         }
     }
 }
