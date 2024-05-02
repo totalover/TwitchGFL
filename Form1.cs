@@ -138,7 +138,19 @@ namespace TwitchGFL
             if (isAutoMode)
             {
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string filePath = Path.Combine(path, $"GFL-{DateTime.Now.ToString("ddMMyyyyHHmm")}.txt");
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.FileSavePath))
+                {
+                    path = Properties.Settings.Default.FileSavePath;
+                }
+
+                string fileName = Properties.Settings.Default.FileName;
+                fileName = fileName.Replace("dd", DateTime.Now.Day.ToString("00"));
+                fileName = fileName.Replace("MM", DateTime.Now.Month.ToString("00"));
+                fileName = fileName.Replace("yyyy", DateTime.Now.Year.ToString());
+                fileName = fileName.Replace("HH", DateTime.Now.Hour.ToString("00"));
+                fileName = fileName.Replace("mm", DateTime.Now.Minute.ToString("00"));
+
+                string filePath = Path.Combine(path, fileName);
                 File.WriteAllText(filePath, saveFile);
                 Application.Exit();
             }
@@ -258,5 +270,9 @@ namespace TwitchGFL
 
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new Settings().ShowDialog();
+        }
     }
 }
