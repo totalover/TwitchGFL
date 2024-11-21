@@ -118,7 +118,12 @@ namespace TwitchGFL
         {
             string saveFile = "";
             int viewsLimit = int.Parse(Properties.Settings.Default.MinimumViews);
-            var hp = await TheTwitchAPI.Helix.Games.GetGamesAsync(null, new List<string>() { "Path of Exile" });
+            string poeGameName = "Path of Exile";
+            if (Program.poe2)
+            {
+                poeGameName = "Path of Exile 2";
+            }
+            var hp = await TheTwitchAPI.Helix.Games.GetGamesAsync(null, new List<string>() { poeGameName });
             var clipy = await TheTwitchAPI.Helix.Clips.GetClipsAsync(null, hp.Games[0].Id.ToString(), null, null, null, fromDate, toDate, 100);
             textBox1.Text = "";
             foreach (var item in clipy.Clips.OrderByDescending(x => x.ViewCount))
@@ -158,6 +163,14 @@ namespace TwitchGFL
                 fileName = fileName.Replace("yyyy", DateTime.Now.Year.ToString());
                 fileName = fileName.Replace("HH", DateTime.Now.Hour.ToString("00"));
                 fileName = fileName.Replace("mm", DateTime.Now.Minute.ToString("00"));
+                if (Program.poe2)
+                {
+                    fileName = "POE2-" + fileName;
+                }
+                else
+                {
+                    fileName = "POE1-" + fileName;
+                }
 
                 string filePath = Path.Combine(path, fileName);
                 File.WriteAllText(filePath, saveFile);
@@ -303,6 +316,11 @@ namespace TwitchGFL
         {
             Properties.Settings.Default.GrabTopVideos = numericUpDown2.Value.ToString();
             Properties.Settings.Default.Save();
+        }
+
+        private void poe2Switch_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.poe2 = poe2Switch.Checked;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace TwitchGFL
 {
     internal static class Program
     {
+        public static bool poe2 = false;
         /// <summary>
         /// Główny punkt wejścia dla aplikacji.
         /// </summary>
@@ -30,13 +31,19 @@ namespace TwitchGFL
 
             if(args.Length > 0)
             {
+                if(args.Any(x => x.Contains("POE2")))
+                {
+                    poe2 = true;
+                }
+
+
                 Application.Run(new Form1(true));
+
 
             }
             else
             {
                 Application.Run(new Form1());
-
             }
         }
 

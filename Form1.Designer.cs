@@ -39,6 +39,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.poe2Switch = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
@@ -80,7 +81,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label1.Location = new System.Drawing.Point(680, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(151, 25);
+            this.label1.Size = new System.Drawing.Size(184, 29);
             this.label1.TabIndex = 4;
             this.label1.Text = "Minimum views:";
             // 
@@ -188,11 +189,24 @@
             0});
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
+            // poe2Switch
+            // 
+            this.poe2Switch.AutoSize = true;
+            this.poe2Switch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.poe2Switch.Location = new System.Drawing.Point(472, 24);
+            this.poe2Switch.Name = "poe2Switch";
+            this.poe2Switch.Size = new System.Drawing.Size(107, 29);
+            this.poe2Switch.TabIndex = 11;
+            this.poe2Switch.Text = "POE2?";
+            this.poe2Switch.UseVisualStyleBackColor = true;
+            this.poe2Switch.CheckedChanged += new System.EventHandler(this.poe2Switch_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(875, 450);
+            this.Controls.Add(this.poe2Switch);
             this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -207,7 +221,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
-            this.Text = "Twitch GFL Clips Grabber 1.2";
+            this.Text = "Twitch GFL Clips Grabber 1.3 ultra pro max";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
@@ -227,6 +241,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.CheckBox poe2Switch;
     }
 }
 
