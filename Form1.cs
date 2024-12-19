@@ -125,6 +125,10 @@ namespace TwitchGFL
             }
             var hp = await TheTwitchAPI.Helix.Games.GetGamesAsync(null, new List<string>() { poeGameName });
             var clipy = await TheTwitchAPI.Helix.Clips.GetClipsAsync(null, hp.Games[0].Id.ToString(), null, null, null, fromDate, toDate, 100);
+            List<string> userIdList = new List<string>();
+            userIdList = clipy.Clips.Select(x => x.BroadcasterId).ToList();
+            var users = await TheTwitchAPI.Helix.Users.GetUsersAsync(userIdList);
+
             textBox1.Text = "";
             foreach (var item in clipy.Clips.OrderByDescending(x => x.ViewCount))
             {
@@ -139,13 +143,23 @@ namespace TwitchGFL
                     continue;
                 }
 
+                var streamingUser = users.Users.Where(x => x.Id == item.BroadcasterId).FirstOrDefault();
+                var urlTemp = item.Url;
+                urlTemp = urlTemp.Replace("https://clips.twitch.tv/", "");
+                string endUrl = $"https://www.twitch.tv/{streamingUser.Login}/clip/{urlTemp}\r\n";
                 if (isAutoMode)
                 {
-                    saveFile += $"{item.Url}\r\n";
+                    //saveFile += $"{item.Url}\r\n";
+
+                    saveFile += endUrl;
                 }
                 else
                 {
-                    textBox1.Text += $"{item.Url}\r\n";
+                    //textBox1.Text += $"{item.Url}\r\n";
+
+                    textBox1.Text += endUrl;
+
+
                 }
             }
 
