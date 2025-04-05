@@ -146,7 +146,9 @@ namespace TwitchGFL
                 var streamingUser = users.Users.Where(x => x.Id == item.BroadcasterId).FirstOrDefault();
                 var urlTemp = item.Url;
                 urlTemp = urlTemp.Replace("https://clips.twitch.tv/", "");
-                string endUrl = $"https://www.twitch.tv/{streamingUser.Login}/clip/{urlTemp}\r\n";
+                //string endUrl = $"https://www.twitch.tv/{streamingUser.Login}/clip/{urlTemp}\r\n";
+                string endUrl = $"{urlTemp}\r\n";
+
                 if (isAutoMode)
                 {
                     //saveFile += $"{item.Url}\r\n";
